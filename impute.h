@@ -24,7 +24,7 @@ void  Transpose(int StudyHap, double * Sfrom, double * Sto, double &theta)
 // State space is consisted of N_r reference haplotypes
 // Sfrom, Sto is a vector of size N_r, Sfrom[i] is the probability of being in the state of reference haplotype S_i, i= 1, ..., N_r, on previous marker position
 // theta is transition rate, i.e., recombination rate, assume it is the same for all markers
-    N_r = Sfrom->size(); // total number of reference haplotypes
+    int N_r = Sfrom->size(); // total number of reference haplotypes
     double p_sum; // sum of vector Sfrom
 
 	for(int i = 0; i < N_r; i++){
