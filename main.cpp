@@ -1,6 +1,7 @@
 #include "impute.h"
 #include "transpose.h"
 #include "conditionondata.h"
+#include "CalcGL.h"
 
 //marker/haplotype index starting from 0
 //char GetStudyHaplotype(int haplotype, int marker)
