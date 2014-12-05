@@ -1,7 +1,7 @@
 #include "impute.h"
+#include "transpose.h"
+#include "conditionondata.h"
 
-
-using namespace std;
 
 
 int main(int argc, char ** argv){
