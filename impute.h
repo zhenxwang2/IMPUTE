@@ -35,7 +35,7 @@ void RunLeftHMM(int StudyHap, double ** Lmat){
             Transpose(StudyHap, Lmat[j-1], Lmat[j], theta);
             CondGL(StudyHap, j, Lmat[j], epsilon, freq);
         }
-    }
+   }
 
 }
 
