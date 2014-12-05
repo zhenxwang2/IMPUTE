@@ -29,11 +29,12 @@ int main(int argc, char ** argv){
     
     int num_ref_haplotypes = countRefHaplotypes(referencevcf); //number of reference haplotypes
     
+    //allocate memory for HMM
     // Define double array to save GenotypeLikelyhood and Frequences
     double ** matrix= AllocateDoubleMatrix(num_ref_haplotypes,number_markers);
     double ** freqs= AllocateDoubleMatrix(5, number_markers);
     
-    //allocate memory for HMM
+    
     //walk forward to produce the prob matrix
     //walk reverse to calculate backward prob matrix, and overwrite matrix to combined probs.
     int numIterations; // number of iterations of HMM
