@@ -9,8 +9,9 @@
 //
 
 int main(int argc, char ** argv){
-  char *samplevcf = argv[1];
-  char *referencevcf = argv[2];
+  char *samplevcf = argv[0];
+  char *referencevcf = argv[1];
+  string outputvcf = argv[2]
   
   int number_markers = countMarkers(samplevcf);
   int num_sample_haplotypes = countStudyHaplotypes(samplevcf);
