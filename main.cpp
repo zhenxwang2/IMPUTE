@@ -20,51 +20,33 @@ int main(int argc, char ** argv){
   int number_markers = countMarkers(samplevcf);
   int num_sample_haplotypes = countStudyHaplotypes(samplevcf);
   
+    // Load study sample haplotype data
   char ** samplematrix = AllocateCharMatrix(num_sample_haplotypes, number_markers);
   loadStudyGenotypes(samplematrix, num_sample_haplotypes, number_markers, samplevcf);
   
   //to be added
-  // loadReferenceGenotypes
-  double ** matrix=
-  double ** freqs=
-  double ** probmatrix = AllocateCharMatrix(num_sample_haplotypes, number_markers)
-   RunLeftHmm(samplematrix, referencematrix, freqs )
-   RunRightHmmCombine(samplematrix,referencematrix, freqs)
-  //allocate memory for HMM
-  //walk forward to produce the prob matrix
-  //walk reverse to calculate backward prob matrix, and overwrite matrix to combined probs.
-
-
-  return 1;
-}
-
-
-
-int main(int argc, char ** argv){
-
-    string file_ref = "reference.vcf";
-    string file_study = "study.vcf";
+  // loadReferenceGenotypes as variable haplotypes
     
-    // Load Genotypes
-    int Ns; // number of study haplotypes
-    int Nr; // number of reference haplotypes
-    int Ms; // number of study markers
-    int Mr; // number of reference markers
-    //int iter; // # of mcmc iterations
+    int num_ref_haplotypes = countRefHaplotypes(referencevcf); //number of reference haplotypes
     
-    char ** HapStudy[Ns][Ms]; // array to save study haplotypes data
-    char ** HapRef[Mr][Nr]; // array to save reference haplotype data
-    Initialize(HapStudy, file_study); // load in data
-    Initialize(HapRef, file_ref);
+    // Define double array to save GenotypeLikelyhood and Frequences
+    double ** matrix= AllocateDoubleMatrix(num_ref_haplotypes,number_markers);
+    double ** freqs= AllocateDoubleMatrix(5, number_markers);
     
-    double ** V[Nr][Ms]; // used to do imputation
+    //allocate memory for HMM
+    //walk forward to produce the prob matrix
+    //walk reverse to calculate backward prob matrix, and overwrite matrix to combined probs.
+    int numIterations; // number of iterations of HMM
     
-    for (int i = 0; i< Ms; i++) {
-        char * hap_study = HapStudy[i];
-        RunHMM(hap_study, V, iter);
-        Impute(hap_study, V);
+    for (int i=0; i<numIterations; i++) {
+        double ** probmatrix = AllocateCharMatrix(num_sample_haplotypes, number_markers)
+        RunLeftHmm(samplematrix, referencematrix, freqs )
+        RunRightHmmCombine(samplematrix,referencematrix, freqs)
+        
+        
+        // Impute
     }
-    //print(hap_study);
-    
+
   return 1;
 }
+
