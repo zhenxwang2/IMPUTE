@@ -9,9 +9,12 @@
 //
 
 int main(int argc, char ** argv){
-  char *samplevcf = argv[0];
-  char *referencevcf = argv[1];
-  string outputvcf = argv[2]
+  
+  if(argc < 4){cout << "command format: impute.cpp sample.vcf reference.vcf output.vcf" << endl;}
+  
+  char *samplevcf = argv[1];
+  char *referencevcf = argv[2];
+  string outputvcf = argv[3]
   
   int number_markers = countMarkers(samplevcf);
   int num_sample_haplotypes = countStudyHaplotypes(samplevcf);
