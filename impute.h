@@ -23,20 +23,23 @@ int CountRefHap(){}
 int CountMarkers(){}
 
 // Run HMM 
-void RunLeftHMM(char * StudyHap, double ** Lmat){
+void RunLeftHMM(int StudyHap, double ** Lmat){
     
     InitialFirstVector(StudyHap, Lmat[0]);
+    if (GetStudyHap(StudyHap, 0) != NULL) {
+        CondGL(StudyHap[0], Lmat[0], epsilon);
+    }
+    
     for (int j=1; j<Ms; j++) {
-        Transpose(StudyHap[j], Lmat[j-1], Lmat[j], theta);
-        CondGL(StudyHap[j], glvec, epsilon);
-        for (int i=0; i<Nr; i++) {
-            Lmat[j][i] = Lmat[j][i] * glvec[i];
+        if (GetStudyHap(StudyHap, j) != NULL) {
+            Transpose(StudyHap, Lmat[j-1], Lmat[j], theta);
+            CondGL(StudyHap, j, Lmat[j], epsilon, freq);
         }
     }
 
 }
 
-RunRightHMM(char * StudyHap, double ** Rmat){}
+RunRightHMM(int StudyHap, double ** Rmat){}
 
 ConbineHMM(double ** Lmat, double ** Rmat, double ** V){}
 
@@ -60,30 +63,50 @@ void  Transpose(int StudyHap, double * Sfrom, double * Sto, double &theta)
 // theta is transition rate, i.e., recombination rate, assume it is the same for all markers
     int Nr = Sfrom->size(); // total number of reference haplotypes
     double p_sum; // sum of vector Sfrom
+    
+    if (theta == 0) {
+        for (int i=0; i < Nr; i++) {
+            Sto[i] = Sfrom[i];
+        }
+    }
 
-	for(int i = 0; i < Nr; i++){
+    else{
         p_sum = 0.0;
         for (int j=0; j < Nr; j++) {
-                p_sum += Sfrom[j];
+            p_sum += Sfrom[j];
+        }
+        p_sum *= theta / (double)N_r;
+        
+        double q = 1.0 - theta;
+        
+        if (p_sum < 1e-10) {
+            p_sum *= 1e15;
+            q *= 1e15;
         }
         
-        Sto[i] = (1.0 - theta) * Sfrom[i] + theat / (double)N_r * p_sum;
-	}
+        for(int i = 0; i < Nr; i++){
+            Sto[i] = q * Sfrom[i] + p_sum;
+        }
+    }
     
     return;
+    
 }
 
-void CondGL(int StudyHap, double * GV, double &espilon){
+void CondGL(int StudyHap, int position, double * GV, double &epsilon, double &freq){
 
     int Nr = GV->size();
-    char *study_allel = GetStudyHap(StudyHap);
+    char *study_allel = GetStudyHap(StudyHap, position);
 
+    double prand = epsilon * freq;
+    double pmatch = (1.0 - epsilon) + prand;
+    
     for (int i=0; i<Nr; i++) {
-        char *ref_allel = GetRefHap(RefHap[i]);
+        char *ref_allel = GetRefHap(RefHap[i], position);
         if (strcmp(study_allel, ref_allel) == 0) {
-            GV[i] = 1 - epsilon;
+            GV[i] *= pmatch;
         }
-        else GV[i] = epsilon;
+        else GV[i] *= prand;
     }
     return;
 }
