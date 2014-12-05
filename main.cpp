@@ -14,7 +14,7 @@ int main(int argc, char ** argv){
   
   char *samplevcf = argv[1];
   char *referencevcf = argv[2];
-  string outputvcf = argv[3]
+  string outputvcf = argv[3];
   
   int number_markers = countMarkers(samplevcf);
   int num_sample_haplotypes = countStudyHaplotypes(samplevcf);
