@@ -1,8 +1,3 @@
-
-Project of Biostatistics 830:
-
-C++ code to do imputation of haplotypes with an HMM...
-
 =======
 ///////    Project of Biostatistics 830  /////////////
 
