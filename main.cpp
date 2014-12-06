@@ -1,6 +1,4 @@
 #include "impute.h"
-#include "transpose.h"
-#include "conditionondata.h"
 #include "CalcGL.h"
 
 //marker/haplotype index starting from 0
@@ -11,7 +9,7 @@
 
 int main(int argc, char ** argv){
   
-  if(argc < 4){cout << "command format: impute.cpp sample.vcf reference.vcf output.vcf" << endl;}
+  if(argc < 4){cout << "command format: ./impute sample.vcf reference.vcf output.vcf" << endl;}
   
   char *samplevcf = argv[1];
   char *referencevcf = argv[2];
