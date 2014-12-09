@@ -1,5 +1,6 @@
 #include "impute.h"
 #include "CalcGL.h"
+#include "HMM.h"
 #include "LoadVCF.h"
 
 //marker/haplotype index starting from 0
