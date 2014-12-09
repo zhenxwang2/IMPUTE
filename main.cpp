@@ -1,7 +1,7 @@
 #include "LoadVCF.h"
 #include "CalcGL.h"
 #include "HMM.h"
-#include "impute.h"
+#include "Impute.h"
 
 
 
