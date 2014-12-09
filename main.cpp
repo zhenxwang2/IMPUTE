@@ -6,6 +6,8 @@
 
 //char GetReferenceHaplotype(int haplotype, int marker);
 //
+char ** samplematrix;
+char ** referencematrix;
 
 int main(int argc, char ** argv){
   
@@ -16,16 +18,20 @@ int main(int argc, char ** argv){
   string outputvcf = argv[3];
   
   int number_markers = countMarkers(samplevcf);
-  int num_sample_haplotypes = countStudyHaplotypes(samplevcf);
+  int num_sample_haplotypes = countHaplotypes(samplevcf);
   
     // Load study sample haplotype data
-  char ** samplematrix = AllocateCharMatrix(num_sample_haplotypes, number_markers);
+  samplematrix = AllocateCharMatrix(num_sample_haplotypes, number_markers);
   loadStudyGenotypes(samplematrix, num_sample_haplotypes, number_markers, samplevcf);
   
   //to be added
   // loadReferenceGenotypes as variable haplotypes
-    
-    int num_ref_haplotypes = countRefHaplotypes(referencevcf); //number of reference haplotypes
+  int num_ref_markers = countMarkers(referencevcf);
+  int num_reference_haplotypes = countHaplotypes(referencevcf);
+  referencematrix = AllocateCharMatrix(num_reference_haplotypes, num_ref_markers);
+  loadReferenceGenotypes(referenceMatrix, num_reference_haplotypes, num_ref_markers, referencevcf);
+  
+    int num_ref_haplotypes = countHaplotypes(referencevcf); //number of reference haplotypes
     
     //allocate memory for HMM
     // Define double array to save GenotypeLikelyhood and Frequences
