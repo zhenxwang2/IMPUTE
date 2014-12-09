@@ -7,8 +7,7 @@
 
 //char GetReferenceHaplotype(int haplotype, int marker);
 //
-char ** samplematrix;
-char ** referencematrix;
+
 
 int main(int argc, char ** argv){
   
@@ -17,26 +16,28 @@ int main(int argc, char ** argv){
   char *samplevcf = argv[1];
   char *referencevcf = argv[2];
   string outputvcf = argv[3];
-  
-  int number_markers = countMarkers(samplevcf);
-  int num_sample_haplotypes = countHaplotypes(samplevcf);
-  
-    // Load study sample haplotype data
-  samplematrix = AllocateCharMatrix(num_sample_haplotypes, number_markers);
-  loadStudyGenotypes(samplematrix, num_sample_haplotypes, number_markers, samplevcf);
-  
-  //to be added
-  // loadReferenceGenotypes as variable haplotypes
-  int num_ref_markers = countMarkers(referencevcf);
-  int num_reference_haplotypes = countHaplotypes(referencevcf);
-  referencematrix = AllocateCharMatrix(num_reference_haplotypes, num_ref_markers);
-  loadReferenceGenotypes(referenceMatrix, num_reference_haplotypes, num_ref_markers, referencevcf);
-  
-    int num_ref_haplotypes = countHaplotypes(referencevcf); //number of reference haplotypes
     
+    char ** samplematrix;
+    char ** referencematrix;
+    
+    int number_markers = countMarkers(argv[1]);
+    int num_sample_haplotypes = countHaplotypes(argv[1]);
+    
+    //load sample vcf
+    //allocate memory
+    samplematrix = AllocateCharMatrix(num_sample_haplotypes, number_markers);
+    //load genotypes
+    
+    loadStudy(samplematrix, num_sample_haplotypes, number_markers, samplevcf);
+    int number_reference_markers = countMarkers(argv[2]);
+    int num_reference_haplotypes = countHaplotypes(referencevcf);
+    
+    referencematrix = AllocateCharMatrix(number_reference_markers, num_reference_haplotypes);
+    loadReference(referencematrix, num_reference_haplotypes, number_reference_markers, referencevcf);
+      
     //allocate memory for HMM
     // Define double array to save GenotypeLikelyhood and Frequences
-    double ** matrix= AllocateDoubleMatrix(num_ref_haplotypes,number_markers);
+    double ** matrix= AllocateDoubleMatrix(num_reference_haplotypes,number_markers);
     double ** freqs= AllocateDoubleMatrix(5, number_markers);
     
     
