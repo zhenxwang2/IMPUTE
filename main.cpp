@@ -1,7 +1,9 @@
-#include "impute.h"
+#include "LoadVCF.h"
 #include "CalcGL.h"
 #include "HMM.h"
-#include "LoadVCF.h"
+#include "impute.h"
+
+
 
 //marker/haplotype index starting from 0
 //char GetStudyHaplotype(int haplotype, int marker)
