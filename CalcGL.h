@@ -62,7 +62,6 @@ void Condition(double * GV, char ** haplotypes, int position, char observed, dou
     }
     
     int Nr = GV->size();
-    char *study_allel = haplotypes[i][position];
     
     double prand = epsilon * freq;
     double pmatch = (1.0 - epsilon) + prand;
