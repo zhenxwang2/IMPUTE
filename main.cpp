@@ -41,7 +41,6 @@ int main(int argc, char ** argv){
     double ** matrix= AllocateDoubleMatrix(num_reference_haplotypes,number_markers);
     double ** freqs= AllocateDoubleMatrix(5, number_markers);
     
-    
     //walk forward to produce the prob matrix
     //walk reverse to calculate backward prob matrix, and overwrite matrix to combined probs.
     int numIterations; // number of iterations of HMM
@@ -52,8 +51,11 @@ int main(int argc, char ** argv){
         RunRightHmmCombine(samplematrix,referencematrix, freqs)
         
         
-        // Impute
+        // Impute 
+        ImputationGenotype(freqs[1], freqs[2], freqs[3]);
     }
+    // Impute after all the iterations and calculate the quality scores
+    ImputationQuality(numIterations);
 
   return 1;
 }
