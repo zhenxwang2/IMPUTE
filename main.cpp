@@ -6,11 +6,11 @@
 
 
 //marker/haplotype index starting from 0
-//char GetStudyHaplotype(int haplotype, int marker)
 
-//char GetReferenceHaplotype(int haplotype, int marker);
-//
-
+//declared globally
+char ** samplematrix;
+char ** referencematrix;
+    
 
 int main(int argc, char ** argv){
   
@@ -20,9 +20,7 @@ int main(int argc, char ** argv){
   char *referencevcf = argv[2];
   string outputvcf = argv[3];
     
-    char ** samplematrix;
-    char ** referencematrix;
-    
+  
     int number_markers = countMarkers(argv[1]);
     int num_sample_haplotypes = countHaplotypes(argv[1]);
     
