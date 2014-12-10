@@ -40,7 +40,12 @@ int main(int argc, char ** argv){
     // Define double array to save GenotypeLikelyhood and Frequences
     double ** matrix= AllocateDoubleMatrix(num_reference_haplotypes,number_markers);
     double ** freqs= AllocateDoubleMatrix(5, number_markers);
-    
+    // Define Most Likely Genotype, imputation quality
+    double ** GenotypeSampling =  AllocateDoubleMatrix(3, number_markers);
+    double * GenotypeScore = AllocateMatrix(number_markers);
+    int * MLGenotype = AllocateMatrix(number_markers);
+    double * GenotypeQualityScore = AllocateMatrix(number_markers);
+    double R_square_expected = 0.0;
     
     //walk forward to produce the prob matrix
     //walk reverse to calculate backward prob matrix, and overwrite matrix to combined probs.
@@ -53,7 +58,9 @@ int main(int argc, char ** argv){
         
         
         // Impute
+        ImputationGenotype(freqs[1], freqs[2], freqs[3]);
     }
+    ImputationQuality(numIterations);
 
   return 1;
 }
